@@ -35,7 +35,7 @@ ____
 ## Model Properties
 
  | Property Name | UI Name | Type | Default | Description | 
- | ----- | ----- | ----- | | ----- | 
+ | ----- | ----- | ----- | ----- | ----- | 
  | name | Name | string | | name your task | 
  | host_id | Bots | string | | select the host where the script will run | 
  | script_id | Script | string | | select the script to be executed by the task | 
@@ -106,8 +106,64 @@ The secret key provides access to the task it belongs **and only to that task**.
 ```bash
 customer=$THEEYE_ORGANIZATION_NAME
 
-curl -sS "https://supervisor.theeye.io/${customer}/task?access_token=$THEEYE_TOKEN"
+curl -sS "https://supervisor.theeye.io/${customer}/task?access_token=${THEEYE_TOKEN}"
 ```
+
+### Get all using filters
+
+*Resquest*
+
+```bash
+customer=$THEEYE_ORGANIZATION_NAME
+
+curl -sS "https://supervisor.theeye.io/${customer}/task?access_token=${THEEYE_TOKEN}\
+&include\[acl\]=1\
+&include\[name\]=1\
+&include\[tags\]=1\
+&where\[tags\]=opcionales"
+```
+
+or
+
+```bash
+customer=$THEEYE_ORGANIZATION_NAME
+
+curl -G -sS "https://supervisor.theeye.io/${customer}/task?access_token=${THEEYE_TOKEN}" \
+  --data-urlencode "include[acl]=1" \
+  --data-urlencode "include[name]=1" \
+  --data-urlencode "include[tags]=1" \
+  --data-urlencode "where[tags]=opcionales" 
+```
+
+
+*Response*
+
+```json
+[
+  {
+    "tags": [
+      "opcionales"
+    ],
+    "acl": [],
+    "_type": "ScriptTask",
+    "name": "Parámetros opcionales TEXT",
+    "id": "61716adc8488258506750219",
+    "schedules": []
+  },
+  {
+    "tags": [
+      "opcionales"
+    ],
+    "acl": [],
+    "_type": "ScriptTask",
+    "name": "Boilerplate",
+    "id": "617bded7fe8599d7215aef39",
+    "schedules": []
+  }
+]
+[1
+```
+
 
 ### **Example 2**
 ### Get by id
