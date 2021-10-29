@@ -6,18 +6,18 @@ ____
 
 ## API Paths
 
-| Method | Path                                                  | Description                         | ACL       | 
-| -----  | -----                                                 | -----                               | -----     | 
-| GET    | /${customer}/task                                     | [List all](#example-1)              | viewer    | 
-|        |                                                       | [List and timeout](#example-3)      | viewer    | 
-| GET    | /${customer}/task/${id}                               | [Get by id](#example-2)   | viewer    | 
-| DELETE | /${customer}/task/${id}                               | Remove task                         | admin     | 
-| GET    | /${customer}/task/:task/recipe                        | Get task recipe                     | admin     | 
-| GET    | /${customer}/task/import                              | Create from recipe                  | admin     | 
-| GET    | /${customer}/task/:task/credentials                   | Get task secret                     | admin     | 
-| POST   | /${customer}/task/${id}/job                           | Run task                            | user      | 
-| POST   | /${customer}/task/${id}/secret/${task_secret_key}/job | [Using task secret key](#example-4) | anonymous | 
-| DELETE | /${customer}/task/${id}/job                           | Empty jobs queue                    | admin     | 
+ | Method | Path | Description | ACL | 
+ | ----- | ----- | ----- | ----- | 
+ | GET | /${customer}/task | [List all](#example-1) | viewer | 
+ | | | [List and timeout](#example-3) | viewer | 
+ | GET | /${customer}/task/${id} | [Get by id](#example-2) | viewer | 
+ | DELETE | /${customer}/task/${id} | Remove task | admin | 
+ | GET | /${customer}/task/:task/recipe | Get task recipe | admin | 
+ | GET | /${customer}/task/import | Create from recipe | admin | 
+ | GET | /${customer}/task/:task/credentials | Get task secret | admin | 
+ | POST | /${customer}/task/${id}/job | Run task | user | 
+ | POST | /${customer}/task/${id}/secret/${task_secret_key}/job | [Using task secret key](#example-4) | anonymous | 
+ | DELETE | /${customer}/task/${id}/job | Empty jobs queue | admin | 
 
 ### NOTES
 
@@ -34,21 +34,21 @@ ____
 
 ## Model Properties
 
-| Property Name   | UI Name              | Type          | Default | Description                                                                                                                                                                                                                                                                                                                                                | 
-| -----           | -----                | -----         |         | -----                                                                                                                                                                                                                                                                                                                                                      | 
-| name            | Name                 | string        |         | name your task                                                                                                                                                                                                                                                                                                                                             | 
-| host_id         | Bots                 | string        |         | select the host where the script will run                                                                                                                                                                                                                                                                                                                  | 
-| script_id       | Script               | string        |         | select the script to be executed by the task                                                                                                                                                                                                                                                                                                               | 
-| tags            | Tags                 | strings array |         | tag your task so you can find quickly through the application.                                                                                                                                                                                                                                                                                             | 
-| task_arguments  | Task Arguments       | array         |         | If the script played by the task is meant to receive parameters you can set them from here. Mind the order as it will be used by the script. _Fixed_, _options_, and _input_ arguments are allowed. _Input_ and _options_ arguments will be asked to the user for execution. _Fixed_ arguments will not be displayed to the user at execution time.        | 
-| run_as          | Run As               | string        |         | write down any extra command or argument needed to run the script. Windows users must declare here which interpreter to use. Linux users could prepend sudo                                                                                                                                                                                                | 
-| description     | Description          | text          |         | describe your task. What does it do, what's the expected output after execution                                                                                                                                                                                                                                                                            | 
-| acls            | ACL's                | array         |         | select who can view your task \(what can be done with the task depends on the user role\)                                                                                                                                                                                                                                                                  | 
-| triggers        | Triggered by         | array         |         | If the task is part of a workflow, select what triggers the task. The task will be triggered by the resource you selected here.                                                                                                                                                                                                                            | 
-| grace_time      | Trigger on-hold time | number        |         | enter the time period TheEye should wait before running the task. _No wait / Cancelation_ can be selected which means the task will run inmediately after triggered. \(only applicable for triggered tasks\). **To cancel the task execution during the grace period, go to tasks panel, expand the task and delete the schedule created by the trigger.** | 
-| timeout         | Execution Timeout    | number        | 600     | This is the number of seconds the Bot will wait for the script to complete the execution. If the timeout is exceeded the Bot will try to terminate(kill) the script, sending SIGTERM/SIGKILL signal                                                                                                                                                        | 
-| multitasking    | Multitasking         | boolean       |         | enable or disable parallel execution of the task. When this is enable assigned bot will be able to run multiple instances of the Job at same time. this is important to check when running DesktopBots                                                                                                                                                     | 
-| env             | Environment (env)    | string        |         | Define extra environment variables that will be present during script execution                                                                                                                                                                                                                                                                            | 
+ | Property Name | UI Name | Type | Default | Description | 
+ | ----- | ----- | ----- | | ----- | 
+ | name | Name | string | | name your task | 
+ | host_id | Bots | string | | select the host where the script will run | 
+ | script_id | Script | string | | select the script to be executed by the task | 
+ | tags | Tags | strings array | | tag your task so you can find quickly through the application. | 
+ | task_arguments | Task Arguments | array | | If the script played by the task is meant to receive parameters you can set them from here. Mind the order as it will be used by the script. _Fixed_, _options_, and _input_ arguments are allowed. _Input_ and _options_ arguments will be asked to the user for execution. _Fixed_ arguments will not be displayed to the user at execution time. | 
+ | run_as | Run As | string | | write down any extra command or argument needed to run the script. Windows users must declare here which interpreter to use. Linux users could prepend sudo | 
+ | description | Description | text | | describe your task. What does it do, what's the expected output after execution | 
+ | acls | ACL's | array | | select who can view your task \(what can be done with the task depends on the user role\) | 
+ | triggers | Triggered by | array | | If the task is part of a workflow, select what triggers the task. The task will be triggered by the resource you selected here. | 
+ | grace_time | Trigger on-hold time | number | | enter the time period TheEye should wait before running the task. _No wait / Cancelation_ can be selected which means the task will run inmediately after triggered. \(only applicable for triggered tasks\). **To cancel the task execution during the grace period, go to tasks panel, expand the task and delete the schedule created by the trigger.** | 
+ | timeout | Execution Timeout | number | 600 | This is the number of seconds the Bot will wait for the script to complete the execution. If the timeout is exceeded the Bot will try to terminate(kill) the script, sending SIGTERM/SIGKILL signal | 
+ | multitasking | Multitasking | boolean | | enable or disable parallel execution of the task. When this is enable assigned bot will be able to run multiple instances of the Job at same time. this is important to check when running DesktopBots | 
+ | env | Environment (env) | string | | Define extra environment variables that will be present during script execution | 
 
 ### NOTES
 
