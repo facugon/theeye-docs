@@ -161,7 +161,6 @@ curl -G -sS "https://supervisor.theeye.io/${customer}/task?access_token=${THEEYE
     "schedules": []
   }
 ]
-[1
 ```
 
 
