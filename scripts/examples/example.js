@@ -6,7 +6,9 @@
  * @prop {Array} components
  * @prop {Object} next
  */
-const successOutput = ({ data, components, next }) => {
+const successOutput = (output = {}) => {
+  
+  const { data = undefined, components = undefined, next = undefined} = output
   // https://documentation.theeye.io/core-concepts/scripts/#passing-arguments-in-workflow
   const output = {
     state: "success",
@@ -46,7 +48,7 @@ process.on('uncaughtException', err => {
 })
 
 // NodeJs boilerplate
-const main = async () => {
+const main = async (args) => {
   const result = {
     data: ["arg1","arg2","arg3"],
     components: { "popup": "Hi World!" },
@@ -59,4 +61,4 @@ const main = async () => {
 }
 
 // invoke main and capture result output
-main().then(successOutput).catch(failureOutput)
+main(process.argv.slice(2)).then(successOutput).catch(failureOutput)
